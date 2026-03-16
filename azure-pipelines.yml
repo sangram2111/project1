@@ -23,8 +23,3 @@ steps:
 - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: Publish Application
 
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'Azure subscription 1'
-    appName: 'flipso-webapp'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
