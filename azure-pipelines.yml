@@ -1,0 +1,30 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '7.x'
+
+- script: dotnet restore
+  displayName: Restore dependencies
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: Build
+
+- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+  displayName: Publish
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'AzureServiceConnection'
+    appName: 'flipso-webapp'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
