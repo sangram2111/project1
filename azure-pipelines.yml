@@ -9,22 +9,25 @@ variables:
 
 steps:
 
+- checkout: self
+
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
     version: '7.x'
 
-- script: dotnet restore
+- script: dotnet restore WebApplication1/WebApplication1.csproj
   displayName: Restore Dependencies
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build WebApplication1/WebApplication1.csproj --configuration $(buildConfiguration)
   displayName: Build Application
 
-- script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish WebApplication1/WebApplication1.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
   displayName: Publish Application
 
-
-- task: DotNetCoreCLI@2
+- task: AzureWebApp@1
   inputs:
     azureSubscription: 'project1azure'
-    command: 'build'
+    appType: 'webApp'
+    appName: 'project1sangram'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
