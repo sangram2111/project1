@@ -30,4 +30,4 @@ steps:
     azureSubscription: 'project1azure'
     appType: 'webApp'
     appName: 'project1sangram'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    package: '$(Build.ArtifactStagingDirectory)'
