@@ -15,16 +15,16 @@ steps:
     version: '7.x'
 
 - script: dotnet restore
-  displayName: Restore dependencies
+  displayName: Restore Dependencies
 
 - script: dotnet build --configuration $(buildConfiguration)
-  displayName: Build
+  displayName: Build Application
 
 - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
-  displayName: Publish
+  displayName: Publish Application
 
 - task: AzureWebApp@1
   inputs:
-    azureSubscription: 'AzureServiceConnection'
+    azureSubscription: 'Azure subscription 1'
     appName: 'flipso-webapp'
     package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
