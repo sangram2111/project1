@@ -14,7 +14,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '7.x'
+    version: '10.x'
 
 - script: dotnet restore WebApplication1/WebApplication1.csproj
   displayName: Restore Dependencies
